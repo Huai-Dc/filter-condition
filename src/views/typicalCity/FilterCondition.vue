@@ -13,13 +13,16 @@
                         </div>
                         <div :class="[`${prefixCls}-box-body`]">
                             <div>
-                                <Tag v-for="(tag, index) in freeList" @click.native="selectCondition(tag, index)" color="cyan">{{tag.name}}</Tag>
+                                <Tag v-for="(tag, index) in freeList" @click.native="selectCondition(tag, index)"
+                                     color="cyan">{{tag.name}}
+                                </Tag>
                             </div>
                             <div>
                                 <Tag v-for="(tag, index) in selectList"
                                      closable :color="tag.exclude?'error':'primary'"
-                                     @click.native="changeState"
-                                >{{tag.name}}</Tag>
+                                     @click.native="changeState(tag)"
+                                >{{tag.name}}
+                                </Tag>
                             </div>
                         </div>
                     </div>
@@ -42,12 +45,13 @@
 <script>
     const prefixCls = 'city-filter'
     import {Button, Row, Col, Table, Tag} from 'view-design'
+
     export default {
         name: "FilterCondition",
         components: {
             Button, Row, Col, Table, Tag
         },
-        data(){
+        data() {
             return {
                 prefixCls: prefixCls,
                 keyWord: '',
@@ -92,35 +96,65 @@
             window.addEventListener('resize', this.setBodySize.bind(this), false);
         },
         methods: {
-            setBodySize(){
+            setBodySize() {
                 let containerHeight = this.$refs.filterContainer.offsetHeight;
                 this.$refs.filterBody.style.height = containerHeight - 30 - 40 + "px"
             },
             /**
              * 添加条件
              */
-            addCondition(){
+            addCondition() {
                 console.log("添加条件")
-                let testData = [{name: "运营"},{name: "运营2"},{name: "运营3"},{name: "运营4"},];
+                let testData = [{name: "运营"}, {name: "运营2"}, {name: "运营3"}, {name: "运营4"},];
                 this.freeList.push(...testData)
+
+                this.$http.post(this.$apis.baseHost + this.$apis.analyse, {
+                    "keywords": ["招商"],
+                    "keywords_filter": [""],
+                    "date_begin": "",
+                    "date_end": "",
+                    "reg_capi_begin": 0,
+                    "reg_capi_end": 0,
+                    "provGuid": "",
+                    "cityGuid": "",
+                    "regionGuid": "",
+                    "domain": "",
+                    "shortStatus": "",
+                    "geoCenterPoint": {},
+                    "geoPolygonPoint": [{}],
+                    "topLeft": {},
+                    "bottomRight": {},
+                    "radius": 0,
+                    "page": 1,
+                    "pageSize": 10
+                }).then(res=>{
+                    console.log(res)
+                })
             },
             /**
              * 导出数据
              */
-            exportData(){
+            exportData() {
                 console.log("导出数据")
             },
-            selectCondition(tag, index){
+            /**
+             * 选择条件
+             * @param tag
+             * @param index
+             */
+            selectCondition(tag, index) {
                 this.selectList.push(tag)
                 this.freeList.splice(index, 1)
             },
-            changeState(tag, index){
-                console.log(tag.exclude)
-                if(tag.exclude === undefined){
-                    console.log(1)
+            /**
+             * 切换状态  蓝色已选  红色排除
+             * @param tag
+             * @param index
+             */
+            changeState(tag, index) {
+                if (tag.exclude === undefined) {
                     this.$set(tag, 'exclude', true)
-                }else{
-                    console.log(2)
+                } else {
                     tag.exclude = !tag.exclude
                 }
             }
@@ -129,51 +163,61 @@
 </script>
 
 <style scoped lang="scss">
-.city-filter-container{
-    padding: 15px;
-    height: 100%;
-    overflow: hidden;
-    .city-filter-topBar{
-        height: 40px;
-        line-height: 40px;
-        .ivu-btn{
-            float: right;
-        }
-    }
-    .city-filter-body{
+    .city-filter-container {
+        padding: 15px;
+        height: 100%;
         overflow: hidden;
-        .ivu-row{
-            height: 100%;
-            .ivu-col{
+
+        .city-filter-topBar {
+            height: 40px;
+            line-height: 40px;
+
+            .ivu-btn {
+                float: right;
+            }
+        }
+
+        .city-filter-body {
+            overflow: hidden;
+
+            .ivu-row {
                 height: 100%;
-                box-sizing: border-box;
-                &:first-child{
-                    padding-right: 8px;
-                }
-                &:last-child{
-                    padding-left: 8px;
-                }
-                .city-filter-box{
+
+                .ivu-col {
                     height: 100%;
-                    border: 1px solid #474747;
-                    border-radius: 4px;
-                    background-color: #1e191f;
-                    .city-filter-box-top{
-                        position: relative;
-                        height: 65px;
-                        padding: 10px 10px;
-                        z-index: 20;
+                    box-sizing: border-box;
+
+                    &:first-child {
+                        padding-right: 8px;
                     }
-                    .city-filter-box-body{
-                        box-sizing: border-box;
+
+                    &:last-child {
+                        padding-left: 8px;
+                    }
+
+                    .city-filter-box {
                         height: 100%;
-                        position: relative;
-                        top: -65px;
-                        padding: 65px 10px 0 10px;
+                        border: 1px solid #474747;
+                        border-radius: 4px;
+                        background-color: #1e191f;
+
+                        .city-filter-box-top {
+                            position: relative;
+                            height: 65px;
+                            padding: 10px 10px;
+                            z-index: 20;
+                        }
+
+                        .city-filter-box-body {
+                            box-sizing: border-box;
+                            height: 100%;
+                            position: relative;
+                            top: -65px;
+                            padding: 65px 10px 0 10px;
+                        }
                     }
                 }
             }
         }
     }
-}
 </style>
