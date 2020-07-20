@@ -110,7 +110,7 @@
 
                 this.$http.post(this.$apis.baseHost + this.$apis.analyse, {
                     "keywords": ["招商"],
-                    "keywords_filter": [""],
+                    "keywords_filter": [],
                     "date_begin": "",
                     "date_end": "",
                     "reg_capi_begin": 0,
@@ -121,7 +121,7 @@
                     "domain": "",
                     "shortStatus": "",
                     "geoCenterPoint": {},
-                    "geoPolygonPoint": [{}],
+                    "geoPolygonPoint": [],
                     "topLeft": {},
                     "bottomRight": {},
                     "radius": 0,
