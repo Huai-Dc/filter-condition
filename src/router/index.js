@@ -8,7 +8,7 @@ const routes = [
     {
         path: '/typicalCity',
         component: Layout,
-        meta:{
+        meta: {
             title: "典型城市",
         },
         children: [
@@ -18,7 +18,23 @@ const routes = [
                 component: () => import("@/views/typicalCity/FilterCondition.vue"),
                 meta: {
                     icon: 'map',
-                    title: '基础地图',
+                    title: '筛选',
+                }
+            }, {
+                path: 'schemeList',
+                name: 'SchemeList',
+                component: () => import("@/views/typicalCity/SchemeList.vue"),
+                meta: {
+                    icon: '',
+                    title: '方案列表'
+                }
+            }, {
+                path: 'schemeDetailStep',
+                name: 'SchemeDetailStep',
+                component: () => import("@/views/typicalCity/SchemeDetailStep.vue"),
+                meta: {
+                    icon: '',
+                    title: '方案步骤'
                 }
             }
         ]
@@ -26,7 +42,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  routes
+    routes
 })
 
 export default router

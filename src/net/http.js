@@ -54,7 +54,7 @@ export default {
             baseURL: '/', //加在请求端口后的默认一级
             url,
             data: data, // qs.stringify() 将对象序列化成URL的形式以 & 拼接
-            timeout: 5000,
+            timeout: 60000,
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
                 'Content-Type': 'application/json; charset=UTF-8'
@@ -73,7 +73,7 @@ export default {
             baseURL: '/backapis',
             url,
             params, // get 请求时带的参数
-            timeout: 5000,
+            timeout: 60000,
             headers: {
                 'X-Requested-With': 'XMLHttpRequest'
             }

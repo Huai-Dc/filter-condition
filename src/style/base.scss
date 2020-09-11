@@ -34,3 +34,50 @@
   background: #191a23;
   box-shadow: 2px 0 6px rgba(0,21,41,.35);
 }
+.dark-table{
+  .ivu-table{
+    background-color: transparent;
+    &:before{
+      background-color:transparent;
+    }
+    th{
+      color: #ffffff;
+      background-color: #656066;
+      border-bottom: none;
+    }
+    td{
+      background-color: transparent;
+      color: #ffffff;
+      border-bottom: 1px solid #656066;
+    }
+  }
+}
+
+.opacity-page{
+  .ivu-page-next, .ivu-page-prev, .ivu-page-item{
+    background-color: transparent;
+    a{
+      color: #ffffff;
+    }
+  }
+  .ivu-page-item-active{
+    background-color: #2d8cf0;
+  }
+}
+.opacity-alter.ivu-alert-info{
+  background-color: rgba(162, 198, 224, 0.7);
+  .ivu-alert-info, .ivu-alert-icon{
+    color: #fae6a7;
+  }
+}
+
+// 弹窗垂直居中
+.vertical-center-modal{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .ivu-modal{
+    top: 0;
+  }
+}

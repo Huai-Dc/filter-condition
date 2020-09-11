@@ -41,3 +41,12 @@ export function formatter(type, value) {
     }
     return value;
 }
+
+/**
+ * 获取几年前的日期
+ * @param [Number] year
+ */
+export function getDateAgo(year){
+    let agoYear = new Date().setFullYear((new Date().getFullYear()-year))
+    return new Date(agoYear).Format("yyyy-MM-dd")
+}
